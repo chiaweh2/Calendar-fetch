@@ -145,6 +145,7 @@ def format_events_for_prompt(events):
     return "\n".join(lines)
 
 
+
 # ── Step 2: Send to local Ollama for summarization ────────────────────────────────
 
 def summarize_with_ollama(events_text):
@@ -195,7 +196,11 @@ def summarize_with_ollama(events_text):
     return response.json()["response"].strip()
 
 
+<<<<<<< HEAD
 # ── Step 3: Post to Slack ────────────────────────────────────────────────
+=======
+# ── Step 3: Post to Slack ────────────────────────────────────────────────────
+>>>>>>> 89a3386 (gen repo and github page)
 
 def post_to_slack(message, webhook_url=config.SLACK_WEBHOOK_URL_CAESAR):
     """Post the summarized message to slack
@@ -224,7 +229,11 @@ def post_to_slack(message, webhook_url=config.SLACK_WEBHOOK_URL_CAESAR):
     print("✓ Posted to Slack")
 
 
+<<<<<<< HEAD
 # ── Main ─────────────────────────────────────────────────────────────────
+=======
+# ── Main ─────────────────────────────────────────────────────────────────────
+>>>>>>> 89a3386 (gen repo and github page)
 
 if __name__ == "__main__":
     print("Fetching calendar events...")

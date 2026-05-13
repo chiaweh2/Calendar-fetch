@@ -1,62 +1,67 @@
 # Calendar Fetch and Slack Summary
 
-This project fetches events from a Google Calendar, summarizes them using a local Ollama model, and posts the summary to a Slack channel. It is designed to run daily as a cron job.
+A personal automation tool that fetches today's Google Calendar events, summarizes them using a local Ollama model, and posts the morning briefing to Slack. Designed to run daily as a cron job.
 
 ## Features
-- Fetches events from a specified Google Calendar.
-- Summarizes the day's events using a local AI model.
-- Posts the summary to a Slack channel.
+
+- Fetches events from a specified Google Calendar (read-only)
+- Summarizes the day using a local AI model via Ollama (no data leaves your machine)
+- Posts the summary to one or more Slack channels
+- Sends a Slack alert if the OAuth token expires and needs renewal
 
 ## Project Structure
+
 ```
 Calendar-fetch/
-├── agent.py             # Main script to fetch, summarize, and post events
-├── config.py            # Configuration file (not in version control — copy from config.example.py)
-├── config.example.py    # Example configuration with placeholder values
-├── credentials.json     # Google API credentials (not in version control)
+├── agent.py             # Main script: fetch → summarize → post
+├── config.py            # Your local config (not in version control)
+├── config.example.py    # Template — copy this to config.py
+├── credentials.json     # Google OAuth credentials (not in version control)
 ├── token.json           # Auto-generated OAuth token (not in version control)
-├── run.sh               # Shell script for cron execution
-├── docs/                # GitHub Pages site (Privacy Policy & Terms of Service)
+├── run.sh               # Shell wrapper for cron
+├── docs/                # GitHub Pages (Privacy Policy & Terms of Service)
 ├── .gitignore
 └── README.md
 ```
 
-## Prerequisites
-- Python 3.12 or higher
-- Google API credentials (download `credentials.json` from the Google Cloud Console).
-- A Slack webhook URL.
-- A local Ollama model (e.g., `llama3`).
-
 ## Setup
 
-### 1. Copy and fill in config
+### 1. Clone and install dependencies
+
 ```bash
-cp config.example.py config.py
-# Edit config.py with your Slack webhook URLs, calendar ID, etc.
-```
-
-### 2. Google Calendar API
-- Go to [console.cloud.google.com](https://console.cloud.google.com)
-- Create a new project → Enable "Google Calendar API"
-- Go to "Credentials" → Create OAuth 2.0 Client ID → Desktop App
-- Download the JSON → save as `credentials.json` in the project root
-- First run opens a browser to authorize; afterwards `token.json` is saved automatically
-
-### 3. Slack Incoming Webhook
-- Go to [api.slack.com/apps](https://api.slack.com/apps) → Create an app → "Incoming Webhooks" → Activate → Add to a channel
-- Copy the webhook URL into `config.py`
-
-### 4. Ollama
-- Install from [ollama.com](https://ollama.com) and pull your model:
-  ```bash
-  ollama pull llama3
-  ```
-
-### 5. Install dependencies
-```bash
+git clone https://github.com/chiaweh2/Calendar-fetch.git
+cd Calendar-fetch
 uv sync
 source .venv/bin/activate
 ```
+
+### 2. Configure
+
+```bash
+cp config.example.py config.py
+# Edit config.py with your values
+```
+
+### 3. Google Calendar API
+
+- Go to [console.cloud.google.com](https://console.cloud.google.com)
+- Create a project → enable **Google Calendar API**
+- Go to **Credentials** → Create **OAuth 2.0 Client ID** → Desktop App
+- Download the JSON → save as `credentials.json` in the project root
+- First run opens a browser to authorize; `token.json` is saved automatically after that
+
+### 4. Slack Incoming Webhook
+
+- Go to [api.slack.com/apps](https://api.slack.com/apps) → Create app → **Incoming Webhooks** → Activate → Add to channel
+- Copy the webhook URL into `config.py`
+
+### 5. Ollama
+
+- Install from [ollama.com](https://ollama.com) and pull a model:
+  ```bash
+  ollama pull llama3
+  ```
+- Ollama exposes a local REST API at `http://localhost:11434` — no data leaves your machine
 
 ## Usage
 
@@ -73,8 +78,16 @@ crontab -e
 ```
 
 ## Pages
+
 - [Privacy Policy](https://chiaweh2.github.io/Calendar-fetch/privacy-policy.html)
 - [Terms of Service](https://chiaweh2.github.io/Calendar-fetch/terms-of-service.html)
 
+## Acknowledgments
+
+- [Google Calendar API](https://developers.google.com/calendar)
+- [Slack Webhooks](https://api.slack.com/messaging/webhooks)
+- [Ollama](https://ollama.ai/)
+
 ## License
+
 MIT License
