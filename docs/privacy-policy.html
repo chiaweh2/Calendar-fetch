@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Privacy Policy – Calendar Fetch</title>
+  <style>
+    body { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif; max-width: 640px; margin: 80px auto; padding: 0 24px; color: #1a1a1a; }
+    h1 { font-size: 1.8rem; margin-bottom: 4px; }
+    h2 { font-size: 1.1rem; margin-top: 36px; margin-bottom: 6px; }
+    p, li { color: #444; line-height: 1.7; }
+    ul { padding-left: 20px; }
+    .meta { color: #888; font-size: 0.9rem; margin-bottom: 40px; }
+    a { color: #0070f3; text-decoration: none; }
+    a:hover { text-decoration: underline; }
+    footer { margin-top: 60px; font-size: 0.85rem; color: #888; border-top: 1px solid #eee; padding-top: 16px; }
+  </style>
+</head>
+<body>
+  <h1>Privacy Policy</h1>
+  <p class="meta">Last updated: May 12, 2026</p>
+
+  <h2>Overview</h2>
+  <p>
+    Calendar Fetch is a personal automation tool that reads Google Calendar events and sends a
+    morning summary to a private Slack workspace. This policy explains how data is handled.
+  </p>
+
+  <h2>Data Collected</h2>
+  <p>The application accesses the following data through the Google Calendar API:</p>
+  <ul>
+    <li>Calendar event titles</li>
+    <li>Event start and end times</li>
+    <li>Event locations (if provided)</li>
+    <li>Event descriptions (if provided)</li>
+  </ul>
+
+  <h2>How Data Is Used</h2>
+  <p>
+    Calendar data is used <strong>solely</strong> to generate a daily morning summary message
+    that is posted to a private Slack channel. The data is processed in memory at runtime
+    and is <strong>not stored, logged, shared, or transmitted</strong> to any third party
+    beyond the designated private Slack channel.
+  </p>
+
+  <h2>Data Retention</h2>
+  <p>
+    No calendar data is persisted. All event information is discarded immediately after the
+    summary message is sent to Slack. No database, file, or external service retains the data.
+  </p>
+
+  <h2>Authentication Credentials</h2>
+  <p>
+    OAuth tokens used to access Google Calendar are stored locally on the machine running
+    this tool and are never shared with any third party. These credentials are excluded from
+    version control via <code>.gitignore</code>.
+  </p>
+
+  <h2>Third-Party Services</h2>
+  <p>This tool interacts with the following services:</p>
+  <ul>
+    <li><strong>Google Calendar API</strong> — to read calendar events (read-only access)</li>
+    <li><strong>Slack Incoming Webhooks</strong> — to deliver the summary to a private channel</li>
+    <li><strong>Ollama</strong> — a locally-running language model for generating the summary text; no data leaves the local machine through this step</li>
+  </ul>
+
+  <h2>Contact</h2>
+  <p>
+    This is a personal project. If you have questions, please open an issue on the
+    <a href="https://github.com/chiaweh2/Calendar-fetch">GitHub repository</a>.
+  </p>
+
+  <footer>
+    <a href="index.html">← Back</a> &nbsp;·&nbsp; <a href="terms-of-service.html">Terms of Service</a>
+  </footer>
+</body>
+</html>
